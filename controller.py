@@ -3,10 +3,12 @@ from flask import Flask, render_template, request, jsonify, json, redirect, url_
 from flask_graphql import GraphQLView
 import requests
 from helper import *
+import logging
 # from flask_restful import Resource, Api, reqparse
 
 app = Flask(__name__)
 
+logging.basicConfig(filename='controller.log', level=logging.DEBUG)
 
 # graphql_URL = "http://127.0.0.1:5001/graphql" # local
 graphql_URL = "http://gql_app:5001/graphql" # docker
@@ -115,9 +117,18 @@ def delete_item():
     print(delete_item_json)
     return redirect(url_for('index'))
 
+# sets up logging
+@app.route('/logs')
+def logs():
+    app.logger.debug("debug log info")
+    app.logger.info("Info log information")
+    app.logger.warning("Warning log info")
+    app.logger.error("Error log info")
+    app.logger.critical("Critical log info")
+    return "testing logging levels."
 
 
 if __name__ == "__main__":
     # run seed data script to populate database with seed data
-    app.run(port=5002, debug=True, host='0.0.0.0')
+    app.run(port=5002, debug=False, host='0.0.0.0')
 

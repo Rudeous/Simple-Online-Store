@@ -27,4 +27,4 @@ def shutdown_session(exception=None):
 
 if __name__ == '__main__':
     os.system('python seed_db.py')
-    app.run(port=5001, debug=True, host='0.0.0.0')
+    app.run(port=5001, debug=False, host='0.0.0.0')

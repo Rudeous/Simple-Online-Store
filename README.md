@@ -38,7 +38,7 @@ docker-compose up
 2. Input variables in forms are passed in double `{{value}}` quotes when processed and submitted as jinja expressions -> prevent (XSS by attribute injection)
 
 #### **Logging**
-
+1. In the backend both API controller Flask app and the Graphql interface app are run with the development server built-in debugger set to `Debug=False` -> This prevents arbitrary python code from being executed from the browser. 
 
 
 ### **Troubleshooting**
