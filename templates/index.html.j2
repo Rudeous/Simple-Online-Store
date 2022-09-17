@@ -1,0 +1,136 @@
+{% extends "base.html.j2" %}
+
+
+{% block page_content %}
+<html>
+
+<body>
+    <!-- display read all items from calling read_all_items into a table -->
+        <h2>Wok Way Fried Rice Store</h2>
+        {# create_item button #}
+        <button type="button" data-toggle="modal" class="btn btn-primary" data-target="#insert_item">Create Item</button>
+        <!-- Modal 1 for adding a item -->
+        <div class="modal fade" id="insert_item" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Create a new dish</h4>
+                    </div>
+                    <form action="{{url_for('create_item')}}" method="post">
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label for="item_name" class="col-xs-2 control-label">New Dish Name</label>
+                                <div class="col-xs-10">
+                                    <input type="text" id="item_name" class="form-control" name="item_name" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="item_price" class="col-xs-2 control-label">New Dish Price</label>
+                                <div class="col-xs-10">
+                                    <input type="text" class="form-control" name="item_price" placeholder="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal 1 -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item["node"]["itemId"] }}</td>
+                    <td>{{ item["node"]["itemName"] }}</td>
+                    <td>{{ item["node"]["itemPrice"] }}</td>
+                    <td><button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#update_item_{{item['node']['itemId']}}">Update</button></td>
+                    
+                    <!-- Modal 2 for updating a book -->
+                    <div class="modal fade" id="update_item_{{item['node']['itemId']}}" tabindex="-1" role="dialog"
+                        aria-labelledby="basicModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Update a dish</h4>
+                                </div>
+                                <form action="{{url_for('update_item', item_id=item['node']['itemId'])}}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label for="item_name" class="col-xs-2 control-label">Updated Dish Name</label>
+                                            <div class="col-xs-10">
+                                                <input type="text" id="item_name" class="form-control" name="item_name" placeholder="" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="item_price" class="col-xs-2 control-label">Updated Dish Price</label>
+                                            <div class="col-xs-10">
+                                                <input type="text" class="form-control" name="item_price" placeholder="" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Modal 2 -->
+
+                    <td><button type="button" class="btn btn-danger" data-toggle="modal"
+                            data-target="#delete_book_{{item['node']['itemId']}}">Delete</button></td>
+                    <!-- Modal 3 for deleting a book -->
+                    <div class="modal fade" id="delete_book_{{item['node']['itemId']}}" tabindex="-1" role="dialog"
+                        aria-labelledby="basicModal" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Delete a book</h4>
+                                </div>
+                                <form action="{{url_for('delete_item', item_id=item['node']['itemId'])}}" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label class="col-sm-12 col-form-label">Do you want to delete the dish <span
+                                                    style='font-weight:bold;color:red'>{{item['node']['itemName']}}</span>
+                                                ?</label>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Modal 3-->
+                </tr>
+                {% endfor %}
+            </tbody>
+
+</body>
+</html>
+{% endblock %}
