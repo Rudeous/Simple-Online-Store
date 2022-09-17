@@ -1,4 +1,4 @@
-# Simple-Online-Store
+# 1. Simple-Online-Store
 
 ## Wok Way Fried Rice Online Store
 Simple online store front with CRUD functionalities for the purposes of editing and viewing fried rice dishes. 
@@ -51,3 +51,26 @@ Run as administrator:
 net stop winnat
 net start winnat
 ```
+
+## Completed Objectives
+### Frontend Webpage
+1. page to list all the items in the store
+2. A form to add / update item in the store
+3. Demonstrate calling API to perform CRUD
+
+### Backend API Server
+#### **Objectives**:
+1. CRUD
+    - CREATE an item in the store
+    - READ list of all items in the store
+    - UPDATE an item in the store
+    - DELETE an item in the store
+2. JSON response
+3. Item attributes:
+    - ID
+    - Name
+    - Price
+
+### **Optional Objectives**
+- Containerised backend and frontend via Docker
+- Integrated database wrapper (ORM) via SQLAlchemy
